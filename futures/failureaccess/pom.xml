@@ -31,7 +31,7 @@
               <goal>compile</goal>
             </goals>
             <configuration>
-              <release>8</release>
+              <release>26</release>
               <excludes>
                 <exclude>module-info.java</exclude>
               </excludes>
