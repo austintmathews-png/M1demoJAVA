@@ -67,7 +67,7 @@
     <gwt-maven-plugin.version>2.10.0</gwt-maven-plugin.version>
     <gwt.version>2.13.0</gwt.version>
     <j2objc.version>3.1</j2objc.version>
-    <java18-signature.version>1.0</java18-signature.version>
+    <java26-signature.version>1.0</java26-signature.version>
     <javahome-resolver-maven-plugin.version>1.0.2</javahome-resolver-maven-plugin.version>
     <jimfs.version>1.3.1</jimfs.version>
     <jspecify.version>1.0.0</jspecify.version>
@@ -174,7 +174,7 @@
                   <version>3.0.5</version>
                 </requireMavenVersion>
                 <requireJavaVersion>
-                  <version>1.8.0</version>
+                  <version>26</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -198,8 +198,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
+            <source>26</source>
+            <target>26</target>
             <encoding>UTF-8</encoding>
             <parameters>true</parameters>
             <compilerArgs combine.children="override">
@@ -216,7 +216,7 @@
                    be passed as part of the same <arg> as -Xplugin:ErrorProne,
                    and I gave up trying to figure out how to do that for test
                    compilation only. -->
-              <arg>-Xplugin:ErrorProne -Xep:NullArgumentForNonNullParameter:OFF -Xep:Java8ApiChecker:ERROR</arg>
+              <arg>-Xplugin:ErrorProne -Xep:NullArgumentForNonNullParameter:OFF</arg>
               <!-- https://github.com/google/error-prone/blob/f8e33bc460be82ab22256a7ef8b979d7a2cacaba/docs/installation.md#jdk-16 -->
               <!-- TODO(cpovirk): Use .mvn/jvm.config instead (per
                    https://errorprone.info/docs/installation#maven). -->
@@ -246,8 +246,8 @@
             <execution>
               <id>default-compile</id>
               <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
+                <source>26</source>
+                <target>26</target>
                 <excludes>
                   <exclude>module-info.java</exclude>
                 </excludes>
@@ -327,7 +327,7 @@
               <additionalOption>-XDignore.symbol.file</additionalOption>
               <additionalOption>-Xdoclint:-html</additionalOption>
             </additionalOptions>
-            <source>8</source>
+            <source>26</source>
           </configuration>
           <executions>
             <execution>
@@ -399,7 +399,7 @@
           <configuration>
             <toolchains>
               <jdk>
-                <version>25</version>
+                <version>26</version>
               </jdk>
             </toolchains>
           </configuration>
@@ -431,16 +431,7 @@
               <annotation>com.google.common.util.concurrent.IgnoreJRERequirement</annotation>
             </annotations>
             <checkTestClasses>true</checkTestClasses>
-            <signature>
-              <groupId>com.toasttab.android</groupId>
-              <artifactId>gummy-bears-api-23</artifactId>
-              <version>${gummy-bears-api-23-version}</version>
-            </signature>
-            <ignores>
-              <!-- Unsafe isn't part of the documented Android API, but it is available.
-                   And in cases where it's not, we have fallbacks (except maybe Striped64 (b/307807965)?). -->
-              <ignore>sun.misc.Unsafe</ignore>
-            </ignores>
+            <skip>true</skip>
           </configuration>
           <executions>
             <execution>
@@ -469,14 +460,14 @@
             (But don't run that if you have put something into ~/.m2/toolchains.xml yourself.)
             -->
             <execution>
-              <id>download-25-and-surefire-version</id>
+              <id>download-26-and-surefire-version</id>
               <goals>
                 <goal>toolchain</goal>
               </goals>
               <configuration>
                 <toolchains>
                   <jdk>
-                    <version>25</version>
+                    <version>26</version>
                     <vendor>temurin</vendor>
                   </jdk>
                   <testJdk>
@@ -511,32 +502,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>suppress-open-jre-modules-for-toolchain-1.8</id>
-      <activation>
-        <property>
-          <name>surefire.toolchain.version</name>
-          <!-- the value provided by java.specification.version -->
-          <value>1.8</value>
-        </property>
-      </activation>
-      <properties>
-        <test.add.opens></test.add.opens>
-      </properties>
-    </profile>
-    <profile>
-      <id>suppress-open-jre-modules-for-toolchain-8</id>
-      <activation>
-        <property>
-          <name>surefire.toolchain.version</name>
-          <!-- the value provided by GitHub CI (which maybe we could even change, but supporting "8" seems nice for any users who try pass that value manually) -->
-          <value>8</value>
-        </property>
-      </activation>
-      <properties>
-        <test.add.opens></test.add.opens>
-      </properties>
     </profile>
     <!-- JDiff and the Gradle integration tests need Java 11 to be installed, and they need to know where it's located so that they can set JAVA_HOME to point to it. The following profile downloads a temurin Java 11 (if one isn't already available) and writes its location to target/java_11_home. This lets our JDiff and Gradle-integration-test scripts invoke the `print-java-11-home` profile and then read that file. -->
     <profile>
