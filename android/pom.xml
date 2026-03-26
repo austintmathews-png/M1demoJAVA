@@ -267,6 +267,7 @@
               <configuration>
                 <compilerArgs>
                   <compilerArg>-Xlint:-removal</compilerArg>
+                  <compilerArg>--add-exports=java.base/sun.security.jca=ALL-UNNAMED</compilerArg>
                 </compilerArgs>
               </configuration>
             </execution>
