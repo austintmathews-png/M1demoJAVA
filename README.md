@@ -16,7 +16,7 @@ other companies as well.
 
 Guava comes in two flavors:
 
-*   The JRE flavor requires JDK 1.8 or higher.
+*   The JRE flavor requires JDK 25 or higher.
 *   If you need support for Android, use
     [the Android flavor](https://github.com/google/guava/wiki/Android). You can
     find the Android Guava source in the [`android` directory].
@@ -26,7 +26,7 @@ Guava comes in two flavors:
 ## Adding Guava to your build
 
 Guava's Maven group ID is `com.google.guava`, and its artifact ID is `guava`.
-Guava provides two different "flavors": one for use on a (Java 8+) JRE and one
+Guava provides two different "flavors": one for use on a (Java 25+) JRE and one
 for use on Android or by any library that wants to be compatible with Android.
 These flavors are specified in the Maven version field as either `33.5.0-jre` or
 `33.5.0-android`. For more about depending on Guava, see
@@ -124,8 +124,8 @@ class by appending the class name to guava.dev. For example,
 5.  Our classes are not designed to protect against a malicious caller. You
     should not use them for communication between trusted and untrusted code.
 
-6.  For the mainline flavor, we test the libraries using OpenJDK 8, 11, and 17
-    on Linux, with some additional testing on newer JDKs and on Windows. Some
+6.  For the mainline flavor, we test the libraries using OpenJDK 25
+    on Linux, with some additional testing on Windows. Some
     features, especially in `com.google.common.io`, may not work correctly in
     non-Linux environments. For the Android flavor, our unit tests also run on
     API level 23 (Marshmallow).

@@ -49,7 +49,7 @@
   <properties>
     <!--
     When building Guava, you can pass (e.g.) `-Dsurefire.toolchain.version=21` to change which version to run tests under.
-    You may find that you need to use Java 11+ to *build* Guava, but it continues to work under Java 8, and you can run tests to verify that, as we do.
+    You may find that you need to use Java 25+ to *build* Guava.
     -->
     <surefire.toolchain.version>${java.specification.version}</surefire.toolchain.version>
     <!-- Override this with -Dtest.include="**/SomeTest.java" on the CLI -->
@@ -67,7 +67,7 @@
     <gwt-maven-plugin.version>2.10.0</gwt-maven-plugin.version>
     <gwt.version>2.13.0</gwt.version>
     <j2objc.version>3.1</j2objc.version>
-    <java26-signature.version>1.0</java26-signature.version>
+    <java25-signature.version>1.0</java25-signature.version>
     <javahome-resolver-maven-plugin.version>1.0.2</javahome-resolver-maven-plugin.version>
     <jimfs.version>1.3.1</jimfs.version>
     <jspecify.version>1.0.0</jspecify.version>
@@ -174,7 +174,7 @@
                   <version>3.0.5</version>
                 </requireMavenVersion>
                 <requireJavaVersion>
-                  <version>26</version>
+                  <version>25</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -198,8 +198,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <source>26</source>
-            <target>26</target>
+            <source>25</source>
+            <target>25</target>
             <encoding>UTF-8</encoding>
             <parameters>true</parameters>
             <compilerArgs combine.children="override">
@@ -246,8 +246,8 @@
             <execution>
               <id>default-compile</id>
               <configuration>
-                <source>26</source>
-                <target>26</target>
+                <source>25</source>
+                <target>25</target>
                 <excludes>
                   <exclude>module-info.java</exclude>
                 </excludes>
@@ -267,6 +267,7 @@
               <configuration>
                 <compilerArgs>
                   <compilerArg>-Xlint:-removal</compilerArg>
+                  <compilerArg>--add-exports=java.base/sun.security.jca=ALL-UNNAMED</compilerArg>
                 </compilerArgs>
               </configuration>
             </execution>
@@ -327,7 +328,7 @@
               <additionalOption>-XDignore.symbol.file</additionalOption>
               <additionalOption>-Xdoclint:-html</additionalOption>
             </additionalOptions>
-            <source>26</source>
+            <source>25</source>
           </configuration>
           <executions>
             <execution>
@@ -399,7 +400,7 @@
           <configuration>
             <toolchains>
               <jdk>
-                <version>26</version>
+                <version>25</version>
               </jdk>
             </toolchains>
           </configuration>
@@ -460,14 +461,14 @@
             (But don't run that if you have put something into ~/.m2/toolchains.xml yourself.)
             -->
             <execution>
-              <id>download-26-and-surefire-version</id>
+              <id>download-25-and-surefire-version</id>
               <goals>
                 <goal>toolchain</goal>
               </goals>
               <configuration>
                 <toolchains>
                   <jdk>
-                    <version>26</version>
+                    <version>25</version>
                     <vendor>temurin</vendor>
                   </jdk>
                   <testJdk>
