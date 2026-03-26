@@ -319,9 +319,9 @@
               <logLevel>${gwt.logLevel}</logLevel>
               <generateJsInteropExports>true</generateJsInteropExports>
               <validateOnly>true</validateOnly>
-                            <sourceLevel>26</sourceLevel>
-                            <!--
-                              To avoid "java.io.IOException: User limit of inotify watches reached" under JDK10.
+              <sourceLevel>26</sourceLevel>
+              <!--
+                To avoid "java.io.IOException: User limit of inotify watches reached" under JDK10.
                 Presumably we don't need inotify, since we don't intend to change files during the
                 build?
                 -->
@@ -375,8 +375,8 @@
               <productionMode>true</productionMode>
               <!-- Fix OutOfMemoryError under Travis. -->
               <extraJvmArgs>-Xms3500m -Xmx3500m -Xss1024k</extraJvmArgs>
-                            <sourceLevel>26</sourceLevel>
-                            <!-- Keep these timeouts very large because, if we hit the timeout, the tests silently pass :( -->
+              <sourceLevel>26</sourceLevel>
+              <!-- Keep these timeouts very large because, if we hit the timeout, the tests silently pass :( -->
               <testTimeOut>86400 <!-- seconds --></testTimeOut>
               <testMethodTimeout>1440 <!-- minutes --></testMethodTimeout>
               <!-- Presumably we want watchFileChanges=false here, since we want it for compile: -->
