@@ -99,7 +99,7 @@ subprojects {
     } else {
       guavaVersionJre
     }
-  val javaVersion = JavaVersion.VERSION_1_8
+  val javaVersion = JavaVersion.VERSION_26
 
   repositories {
     mavenCentral()

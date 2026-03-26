@@ -84,6 +84,7 @@ body:
         - Java 11
         - Java 17
         - Java 21
+        - Java 26
 
   - type: checkboxes
     attributes:
